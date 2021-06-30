@@ -45,6 +45,31 @@ ex) Apache server, Nginx(80 포트)
 WAS = Web Server + Web Container   
 DB 조회와 같은 동적인 컨텐츠를 제공하는 미들웨어 엔진   
 JSP와 servlet을 구동하기 위한 서블릿 컨테이너 역할을 수행   
-\* Servlet: WAS 상에서 클라이언트의 요청을 처리하는 자바 
+\* JSP: HTML안에 자바 코드를 삽입하여 동적인 페이지를 생성하는 언어   
+\* Servlet: 자바 소스코드안에 HTML 코드가 들어가는 형태의 자바 
 인터페이스   
 ex) Tomcat, JBoss(8080 포트)
+
+## 빌드
+1. ./gradlew build
+2. cd build/libs
+3. java -jar demo-0.0.1-SNAPSHOT.jar
+
+빌드 파일 삭제   
+./gradlew clean
+
+## 웹 개발 방식
+### 정적 컨텐츠
+Controller 없이 정적인 html 파일 전송
+
+### MVC와 템플릿 엔진
+Model(데이터), View(화면), Controller(비즈니스 로직) 분리   
+템플릿 엔진을 이용하여 controller에서 view로 데이터 전달   
+HTML파일 변환 후 브라우저에 넘겨줌   
+viewResolver가 view를 찾고 템플릿 엔진 연결
+
+### API
+View 없이 데이터를 그대로 전송   
+@ResponseBody annotation 사용 -> 
+viewResolver 대신 HTTPMessageConverter가 동작   
+Jackson 라이브러리를 통해 객체를 JSON으로 변환
