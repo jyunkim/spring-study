@@ -3,16 +3,16 @@
 start.spring.io 
 ### Project
 빌드: 소스코드를 실행할 수 있는 가공물로 변환하는 과정   
-여기서는 자바 소스코드를 JVM이나 tomcat같은 WAS가
+> 여기서는 자바 소스코드를 JVM이나 tomcat같은 WAS가
 인식할 수 있는 구조로 패키징하는 과정을 의미
 
 빌드 도구: 프로젝트 생성, 테스트 빌드, 배포 등의
 프로젝트 라이프사이클 및 라이브러리 dependency 관리
-- Maven   
+- **Maven**   
   XML 기반   
   필요한 라이브러리를 pom.xml에 작성   
   중앙 저장소를 통한 자동 의존성 관리
-- Gradle   
+- **Gradle**   
   Groovy 기반(자바 문법과 유사)   
   Gradle Wrapper를 이용하여 gradle이 설치되지 않은
   시스템에서도 빌드 가능   
@@ -27,7 +27,7 @@ M1 - 정식 릴리즈 되지 않은 버전
 ### Dependencies
 사용할 라이브러리
 
-Spring Web: 스프링 웹 MVC, Tomcat
+Spring Web: 스프링 웹 MVC, Tomcat   
 Thymeleaf: HTML 템플릿 엔진
 
 ### Web Server
@@ -45,17 +45,19 @@ ex) Apache server, Nginx(80 포트)
 WAS = Web Server + Web Container   
 DB 조회와 같은 동적인 컨텐츠를 제공하는 미들웨어 엔진   
 JSP와 servlet을 구동하기 위한 서블릿 컨테이너 역할을 수행   
-\* JSP: HTML안에 자바 코드를 삽입하여 동적인 페이지를 생성하는 언어   
-\* Servlet: 자바 소스코드안에 HTML 코드가 들어가는 형태의 자바 
-인터페이스   
 ex) Tomcat, JBoss(8080 포트)
 
+\* JSP: HTML안에 자바 코드를 삽입하여 동적인 페이지를 생성하는 언어   
+\* Servlet: 자바 소스코드안에 HTML 코드가 들어가는 형태의 자바 
+인터페이스
+
 ## 빌드
+### 빌드 명령어
 1. ./gradlew build
 2. cd build/libs
 3. java -jar demo-0.0.1-SNAPSHOT.jar
 
-빌드 파일 삭제   
+### 빌드 파일 삭제   
 ./gradlew clean
 
 ## 웹 개발 방식
@@ -73,3 +75,13 @@ View 없이 데이터를 그대로 전송
 @ResponseBody annotation 사용 -> 
 viewResolver 대신 HTTPMessageConverter가 동작   
 Jackson 라이브러리를 통해 객체를 JSON으로 변환
+
+## 웹 어플리케이션 계층 구조
+![structure](https://user-images.githubusercontent.com/68456385/123925792-36bc6380-d9c6-11eb-8e90-908afbe0c97f.png)
+- 컨트롤러: 웹 MVC의 controller 역할
+- 서비스: 핵심 비즈니스 로직 구현
+- 리포지토리: DB에 접근, 도메인 객체를 DB에 저장하고 관리
+- 도메인: 비즈니스 도메인 객체 ex) 회원, 주문..
+  
+아직 사용할 DB가 결정되지 않았을 때에는,
+우선 인터페이스로 구현 클래스를 변경할 수 있도록 설계
