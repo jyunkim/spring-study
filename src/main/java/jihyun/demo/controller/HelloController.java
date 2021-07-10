@@ -39,7 +39,11 @@ public class HelloController {
         return hello;
     }
 
-    // 내부 클래스
+    // Inner class(Non-static nested class)는 항상 외부 인스턴스에 대한 참조가 유지됨
+    // 외부 클래스의 자원을 직접 사용할 수 있지만,
+    // 메모리에 대한 참조가 유지되어 메모리 누수가 발생할 수 있고,
+    // 항상 외부 인스턴스의 참조를 통해야 하므로 성능 상 비효율적
+    // 따라서 외부 인스턴스에 대한 참조가 필요하지 않다면 static nested class로 만드는 것이 나음
     static class Hello {
         private String name;
 
