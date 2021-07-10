@@ -1,6 +1,6 @@
 # Spring Study
 ## 프로젝트 생성
-start.spring.io 
+https://start.spring.io 
 ### Project
 빌드: 소스코드를 실행할 수 있는 가공물로 변환하는 과정   
 > 여기서는 자바 소스코드를 JVM이나 tomcat같은 WAS가
@@ -85,3 +85,41 @@ Jackson 라이브러리를 통해 객체를 JSON으로 변환
   
 아직 사용할 DB가 결정되지 않았을 때에는,
 우선 인터페이스로 구현 클래스를 변경할 수 있도록 설계
+
+## 테스트
+### main 메서드, controller
+준비하고 실행하는데 오래 걸리고, 반복 실행이 어려우며, 여러 테스트를 한번에 실행하기 어려움
+
+### JUnit 프레임워크
+테스트 상세 내용 확인 가능   
+한 번에 여러 테스트 가능   
+테스트 순서 의존관계가 생길 수 있음
+
+**@AfterEach**   
+한번에 여러 테스트를 실행하면 메모리 DB에 직전 테스트의 결과가 남을 수 있는데, 이렇게
+되면 이전 테스트 때문에 다음 테스트가 실패할 가능성이 있음   
+@AfterEach를 사용하면 각 테스트가 종료될 때마다 메서드가 실행되는데, 
+이를 통해 clear 메서드를 구현하여 메모리 DB에 저장된 데이터를 삭제할 수 있음
+
+### TDD(Test Driven Development)
+**테스트 주도 개발**   
+테스트 코드를 먼저 작성한 후, 이에 맞춰 기능 구현
+
+### DI(Dependecy Injection)
+**의존성 주입**   
+하나의 객체가 다른 객체의 의존성을 제공   
+필요한 객체를 직접 생성하는 것이 아닌 외부로부터 객체를 받아서 사용   
+-> 객체간의 결합도를 줄이고 코드의 유연성, 재활용성을 높여줌
+```java
+public class MemberService {
+
+  private MemberRepository memberRepository;
+
+  // 의존성 주입
+  // 객체를 직접 생성하지 않고 외부에서 주입
+  public MemberService(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
+  }
+    
+    ...
+```
