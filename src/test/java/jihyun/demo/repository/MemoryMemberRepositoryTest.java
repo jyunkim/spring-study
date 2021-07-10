@@ -32,7 +32,9 @@ class MemoryMemberRepositoryTest {
 
         Member result = repository.findById(member.getId()).get();
         // actual = result, expect = member
-//        Assertions.assertEquals(member, result);
+        // JUnit
+        // Assertions.assertEquals(member, result);
+        // AssertJ
         assertThat(result).isEqualTo(member);
     }
 
