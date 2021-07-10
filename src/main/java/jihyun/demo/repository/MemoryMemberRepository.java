@@ -11,10 +11,11 @@ import java.util.*;
 public class MemoryMemberRepository implements MemberRepository {
 
     // 여기선 DB 대신 변수에 저장
-    private Map<Long, Member> store = new HashMap<>();
+    // 모두 같은 변수를 사용할 수 있도록 static으로 선언
+    private static Map<Long, Member> store = new HashMap<>();
     // 명시적으로 long형 값이라는 의미
     // 0만 쓰면 묵시적으로 int형을 의미
-    private long sequence = 0L;
+    private static long sequence = 0L;
 
     @Override
     public Member save(Member member) {

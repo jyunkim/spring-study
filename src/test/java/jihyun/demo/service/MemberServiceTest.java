@@ -3,6 +3,7 @@ package jihyun.demo.service;
 import jihyun.demo.domain.Member;
 import jihyun.demo.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -10,9 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
     // MemoryService에서 사용하는 MemoryMemberRepository와 별도의 객체
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+    // MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+    // MemberService memberService = new MemberService();
+
+    MemoryMemberRepository memberRepository;
+    MemberService memberService;
+
+    // 테스트 간에 서로 영향이 없도록 매번 새로운 객체 생성
+    @BeforeEach
+    public void beforeEach() {
+        memberRepository = new MemoryMemberRepository();
+        // Service와 테스트에서 같은 repository 사용
+        memberService = new MemberService(memberRepository);
+    }
 
     @AfterEach
     public void afterEach() {
