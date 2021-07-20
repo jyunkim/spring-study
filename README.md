@@ -65,14 +65,14 @@ ex) Tomcat, JBoss(8080 포트)
 Controller 없이 정적인 html 파일 전송
 
 ### MVC와 템플릿 엔진
-Model(데이터), View(화면), Controller(비즈니스 로직) 분리   
+Model(데이터, 비즈니스 로직), View(레이아웃, 화면), Controller(라우팅) 분리   
 템플릿 엔진을 이용하여 controller에서 view로 데이터 전달   
 HTML파일 변환 후 브라우저에 넘겨줌   
 viewResolver가 view를 찾고 템플릿 엔진 연결
 
 ### API
 View 없이 데이터를 그대로 전송   
-@ResponseBody annotation 사용 -> 
+@ResponseBody 어노테이션 사용 -> 
 viewResolver 대신 HTTPMessageConverter가 동작   
 Jackson 라이브러리를 통해 객체를 JSON으로 변환
 
@@ -110,6 +110,10 @@ Jackson 라이브러리를 통해 객체를 JSON으로 변환
 하나의 객체가 다른 객체의 의존성을 제공   
 필요한 객체를 직접 생성하는 것이 아닌 외부로부터 객체를 받아서 사용   
 -> 객체간의 결합도를 줄이고 코드의 유연성, 재활용성을 높여줌
+
+필드 주입, setter 주입, 생성자 주입이 있는데, 의존관계가 실행 중에 동적으로
+변하는 경우는 거의 없으므로 생성자 주입 권장
+
 ```java
 public class MemberService {
 
@@ -123,3 +127,22 @@ public class MemberService {
     
     ...
 ```
+
+## 스프링 빈과 의존관계
+### 의존관계
+컨트롤러는 서비스, 서비스는 레포지토리를 의존함      
+@Autowired - 스프링이 의존성 주입
+
+### 스프링 빈 등록
+1. 컴포넌트 스캔   
+   @Component 어노테이션이 있으면 스프링 빈으로 자동 등록됨   
+   -> 스프링이 실행될 때 스프링 컨테이너에 해당 객체가 스프링 빈으로 생성되어 관리됨   
+   여기에 @Controller, @Service, @Repository 어노테이션이 포함   
+   스프링 컨테이너에 등록된 스프링 빈은 모두 싱글톤(하나의 인스턴스)으로 등록됨   
+   Application 클래스가 포함된 패키지 내부의 클래스만 등록 가능
+   
+
+2. 자바 코드   
+   SpringConfig 파일을 통해 등록   
+   정형화되지 않거나, 상황에 따라 구현 클래스를 변경해야 할 때는 이 방식 사용(ex. MemoryMemberRepository)   
+   -> 컴포넌트 스캔을 사용하면 여러 코드를 변경해야함
