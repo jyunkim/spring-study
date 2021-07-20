@@ -3,16 +3,20 @@ package jihyun.demo.service;
 import jihyun.demo.domain.Member;
 import jihyun.demo.repository.MemberRepository;
 import jihyun.demo.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
     // 의존성 주입
     // 객체를 직접 생성하지 않고 외부에서 넣어줌
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
