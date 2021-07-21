@@ -1,9 +1,23 @@
 # Spring Study
+스프링을 왜 쓰는가?
+
+1. 객체지향적 설계   
+   다형성을 활용하여 수정해야되는 코드를 줄일 수 있음   
+   -> 인터페이스를 만들고 구현체만 바꿔끼움   
+   개방 폐쇄 원칙(OCP, Open-Closed Principle)을 지킬 수 있음   
+   "확장에는 열려있고, 수정에는 닫혀있다."
+   
+
+2. 의존성 주입   
+   객체지향적 설계를 위해선 의존성 주입이 필요   
+   스프링에서 간편하게 의존성 주입 지원   
+   기존 코드를 수정하지 않고 설정만 바꾸면 구현 클래스를 바꿀 수 있음
+
 ## 프로젝트 생성
 https://start.spring.io 
 ### Project
 빌드: 소스코드를 실행할 수 있는 가공물로 변환하는 과정   
-> 여기서는 자바 소스코드를 JVM이나 tomcat같은 WAS가
+> 여기서는 자바 소스코드를 JVM이나 Tomcat같은 WAS가
 인식할 수 있는 구조로 패키징하는 과정을 의미
 
 빌드 도구: 프로젝트 생성, 테스트 빌드, 배포 등의
@@ -44,12 +58,17 @@ ex) Apache server, Nginx(80 포트)
 ### WAS(Web Application Server)
 WAS = Web Server + Web Container   
 DB 조회와 같은 동적인 컨텐츠를 제공하는 미들웨어 엔진   
-JSP와 servlet을 구동하기 위한 서블릿 컨테이너 역할을 수행   
+JSP와 Servlet을 구동하기 위한 서블릿 컨테이너 역할을 수행   
 ex) Tomcat, JBoss(8080 포트)
+ 
+\* Servlet: 자바 소스코드안에 HTML 코드가 들어가는 형태의 자바
+인터페이스   
+\* JSP: HTML안에 자바 코드를 삽입하여 동적인 페이지를 생성하는 언어,
+서블릿의 단점을 보완한 서블릿 기반의 스크립트 기술
 
-\* JSP: HTML안에 자바 코드를 삽입하여 동적인 페이지를 생성하는 언어   
-\* Servlet: 자바 소스코드안에 HTML 코드가 들어가는 형태의 자바 
-인터페이스
+### MVC 패턴의 JSP, Servlet
+JSP와 Servlet을 동시에 사용하는 MVC모델   
+View는 JSP, controller는 Servlet을 사용
 
 ## 빌드
 ### 빌드 명령어
@@ -62,7 +81,8 @@ ex) Tomcat, JBoss(8080 포트)
 
 ## 웹 개발 방식
 ### 정적 컨텐츠
-Controller 없이 정적인 html 파일 전송
+스프링 컨테이너에서 일치하는 controller를 먼저 찾은 후,
+controller가 없으면 정적인 HTML 파일 전송
 
 ### MVC와 템플릿 엔진
 Model(데이터, 비즈니스 로직), View(레이아웃, 화면), Controller(라우팅) 분리   
@@ -145,4 +165,27 @@ public class MemberService {
 2. 자바 코드   
    SpringConfig 파일을 통해 등록   
    정형화되지 않거나, 상황에 따라 구현 클래스를 변경해야 할 때는 이 방식 사용(ex. MemoryMemberRepository)   
-   -> 컴포넌트 스캔을 사용하면 여러 코드를 변경해야함
+   -> 컴포넌트 스캔을 사용하면 여러 코드를 변경해야함   
+   -> 다형성을 활용하여 객체지향적 설계를 할 수 있음
+
+## DB 접근 기술
+### H2
+개발이나 테스트 용도로 가볍고 편리한 DB, 웹 화면 제공
+
+### JDBC(Java Database Connectivity)
+자바에서 데이터베이스에 접속할 수 있도록 하는 자바 API   
+데이터베이스에서 자료를 쿼리하거나 업데이트하는 방법을 제공
+
+### 통합 테스트
+스프링 컨테이너와 DB까지 연결한 통합 테스트
+
+**단위 테스트**   
+기존의 순수 자바 코드의 테스트   
+실행 속도가 훨씬 빠르고, 더 좋은 테스트
+
+@SpringBootTest - 스프링 컨테이너를 띄워 테스트를 함께 실행   
+@Transactional - 각 테스트의 트랜잭션 수행 이후 테스트가 끝나면 롤백
+-> DB에 데이터가 남지 않음
+
+### 스프링 JdbcTemplate
+JDBC API의 반복 코드를 대부분 제거해주는 라이브러리
