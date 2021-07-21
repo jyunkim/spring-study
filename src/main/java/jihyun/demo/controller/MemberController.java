@@ -19,6 +19,7 @@ public class MemberController {
     // 의존성 주입
     // 스프링 컨테이너에 등록
     // 스프링 컨테이너의 스프링 빈에 등록되어 있는 서비스 객체를 가져와 인자로 넣어줌 -> 서비스도 스프링 빈으로 등록해줘야 함
+    // 생성자가 하나면 어노테이션 생략 가능
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
