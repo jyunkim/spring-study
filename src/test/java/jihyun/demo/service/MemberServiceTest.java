@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+// 순수 자바 기반의 테스트
 class MemberServiceTest {
 
     // MemoryService에서 사용하는 MemoryMemberRepository와 별도의 객체
