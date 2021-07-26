@@ -1,4 +1,4 @@
-# Spring Study
+# Spring Tutorial
 스프링을 왜 쓰는가?
 
 1. **객체지향적 설계**   
