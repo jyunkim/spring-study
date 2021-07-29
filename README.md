@@ -1,4 +1,6 @@
 # Spring Study
+출처: https://www.inflearn.com/courses?s=%EC%8A%A4%ED%94%84%EB%A7%81
+
 스프링을 왜 쓰는가?
 
 1. **객체지향적 설계**   
@@ -283,4 +285,3 @@ public class MemberService {
 
 프록시라는 가짜 스프링 빈을 생성
 ![캡처](https://user-images.githubusercontent.com/68456385/126754321-066807b4-b4b1-4394-8afc-fa2f2726f185.PNG)
-
